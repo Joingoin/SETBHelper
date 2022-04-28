@@ -16,6 +16,8 @@ namespace SETBHelper
         public QuestionModule module = null;
         public List<string> dataFriendlyQuestions = null;
 
+        DataTable dt = new DataTable();
+
         public QuestionDiag()
         {
             InitializeComponent();
@@ -41,7 +43,7 @@ namespace SETBHelper
 
         public void PopulateDataGridview()
         {
-            DataTable dt = new DataTable();
+            
             dt.Columns.Add("Question", typeof(string));
             dt.Columns.Add("Correct?", typeof(bool));
 
@@ -53,6 +55,65 @@ namespace SETBHelper
             dt.Columns[0].ReadOnly = true;
             questionsDgv.DataSource = dt;
 
+        }
+
+        private void SetScoreBtn_Click(object sender, EventArgs e)
+        {
+
+            foreach(DataGridViewRow r in questionsDgv.Rows)
+            {
+                bool alrAdded = false;
+                int indxOfFound = -1;
+
+                foreach (QuestionResult res in module.correctQuestions)
+                {
+                    if (res.ATIndex == AttendeeCmbx.SelectedIndex && res.QuestionIndex == r.Index)
+                    {
+                        alrAdded = true;
+                        indxOfFound = module.correctQuestions.IndexOf(res);
+                    }
+                }
+
+
+                if (Convert.ToBoolean(r.Cells[1].Value) == true)
+                {
+                    if(!alrAdded)
+                    {
+                        module.correctQuestions.Add(new QuestionResult(AttendeeCmbx.SelectedIndex,r.Index));
+                    }
+                }
+                else
+                {
+                    if(indxOfFound > -1)
+                    module.correctQuestions.RemoveAt(indxOfFound);
+                }
+            }
+        }
+
+        private void AttendeeCmbx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow r in questionsDgv.Rows)
+            {
+                bool alrAdded = false;
+                int indxOfFound = -1;
+
+
+                foreach (QuestionResult res in module.correctQuestions)
+                {
+                    if (res.ATIndex == AttendeeCmbx.SelectedIndex && res.QuestionIndex == r.Index)
+                    {
+                        alrAdded = true;
+                        indxOfFound = module.correctQuestions.IndexOf(res);
+                        r.Cells[1].Value = true;
+                    }
+                }
+
+                if (!alrAdded)
+                {
+                    r.Cells[1].Value = false;
+                }
+
+        }
         }
     }
 }

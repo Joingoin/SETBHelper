@@ -31,6 +31,7 @@
             this.AttendeeLbl = new System.Windows.Forms.Label();
             this.AttendeeCmbx = new System.Windows.Forms.ComboBox();
             this.questionsDgv = new System.Windows.Forms.DataGridView();
+            this.SetScoreBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.questionsDgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             this.AttendeeCmbx.Name = "AttendeeCmbx";
             this.AttendeeCmbx.Size = new System.Drawing.Size(190, 21);
             this.AttendeeCmbx.TabIndex = 26;
+            this.AttendeeCmbx.SelectedIndexChanged += new System.EventHandler(this.AttendeeCmbx_SelectedIndexChanged);
             // 
             // questionsDgv
             // 
@@ -59,11 +61,22 @@
             this.questionsDgv.Size = new System.Drawing.Size(776, 387);
             this.questionsDgv.TabIndex = 28;
             // 
+            // SetScoreBtn
+            // 
+            this.SetScoreBtn.Location = new System.Drawing.Point(208, 22);
+            this.SetScoreBtn.Name = "SetScoreBtn";
+            this.SetScoreBtn.Size = new System.Drawing.Size(190, 23);
+            this.SetScoreBtn.TabIndex = 29;
+            this.SetScoreBtn.Text = "Set Score";
+            this.SetScoreBtn.UseVisualStyleBackColor = true;
+            this.SetScoreBtn.Click += new System.EventHandler(this.SetScoreBtn_Click);
+            // 
             // QuestionDiag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.SetScoreBtn);
             this.Controls.Add(this.questionsDgv);
             this.Controls.Add(this.AttendeeLbl);
             this.Controls.Add(this.AttendeeCmbx);
@@ -81,5 +94,6 @@
         private System.Windows.Forms.Label AttendeeLbl;
         private System.Windows.Forms.ComboBox AttendeeCmbx;
         private System.Windows.Forms.DataGridView questionsDgv;
+        private System.Windows.Forms.Button SetScoreBtn;
     }
 }

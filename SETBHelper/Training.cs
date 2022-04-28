@@ -20,9 +20,6 @@ namespace SETBHelper
         {
             Host = _host;
             Date = DateTime.Now;
-            //DEBUG -- DELETE IN RELEASE
-            CombatModule test = new CombatModule("Combat Module",Attandees);
-            TModules.Add(test);
         }
 
         public void AddAttendee(string _input)

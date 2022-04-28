@@ -26,14 +26,14 @@ namespace SETBHelper
     public class CombatModule : TrainingModule
     {
 
-        public CombatRequirement[] Requirements = { //Go by RankEnum,Kills,Ratio
-            new CombatRequirement(Attandee.EnuRank.Enlist,0,0), //Enlist
-            new CombatRequirement(Attandee.EnuRank.Cadet,4,0.5), //Cadet
-            new CombatRequirement(Attandee.EnuRank.Private,4,1), //Private
-            new CombatRequirement(Attandee.EnuRank.Corporal,5,1), //Corporal
-            new CombatRequirement(Attandee.EnuRank.Sergant,6,1), //Sergeant
-            new CombatRequirement(Attandee.EnuRank.Master_Sergeant,7,1), //Master Sergeant
-            new CombatRequirement(Attandee.EnuRank.Warrant_Officer,0,0) //Officer Rankings and above
+        public Requirement[] Requirements = { //Go by RankEnum,Kills,Ratio
+            new Requirement(Attandee.EnuRank.Enlist,0,0), //Enlist
+            new Requirement(Attandee.EnuRank.Cadet,4,0.5), //Cadet
+            new Requirement(Attandee.EnuRank.Private,4,1), //Private
+            new Requirement(Attandee.EnuRank.Corporal,5,1), //Corporal
+            new Requirement(Attandee.EnuRank.Sergant,6,1), //Sergeant
+            new Requirement(Attandee.EnuRank.Master_Sergeant,7,1), //Master Sergeant
+            new Requirement(Attandee.EnuRank.Warrant_Officer,0,0) //Officer Rankings and above
         };
 
         public List<CombatResult> CmbtResults = new List<CombatResult>();
@@ -81,9 +81,9 @@ namespace SETBHelper
                     }
                 }
 
-                CombatRequirement req = null;
+                Requirement req = null;
 
-                foreach (CombatRequirement _req in Requirements)
+                foreach (Requirement _req in Requirements)
                 {
                     if(_req.Rank == at.Rank)
                     {
@@ -146,13 +146,22 @@ namespace SETBHelper
         public int PerCount = 2;
         public bool OverfillPerCount = true;
 
-        public List<List<int>> correctQuestions = new List<List<int>>();
+        public Requirement[] Requirements = { //Go by RankEnum,Needed Right,Out of Total
+            new Requirement(Attandee.EnuRank.Enlist,0,0), //Enlist
+            new Requirement(Attandee.EnuRank.Cadet,5,10), //Cadet
+            new Requirement(Attandee.EnuRank.Private,6,10), //Private
+            new Requirement(Attandee.EnuRank.Corporal,7,10), //Corporal
+            new Requirement(Attandee.EnuRank.Sergant,8,10), //Sergeant
+            new Requirement(Attandee.EnuRank.Master_Sergeant,9,10), //Master Sergeant
+            new Requirement(Attandee.EnuRank.Warrant_Officer,0,0) //Officer Rankings and above
+        };
+
+        public List<QuestionResult> correctQuestions = new List<QuestionResult>();
 
         public QuestionModule(string _name, List<Attandee> _at)
             : base(_name, _at)
         {
             GenLists();
-            MessageBox.Show(GiveQuestions());
         }
 
         private void GenLists()
@@ -224,6 +233,38 @@ namespace SETBHelper
             return output;
         }
 
+        public void CalculateResults()
+        {
+            PassedAttendees.Clear();
+            foreach(Attandee at in Attandees)
+            {
+                int gotRight = 0;
+                foreach(QuestionResult res in correctQuestions)
+                {
+                    if(res.ATIndex == Attandees.IndexOf(at))
+                    {
+                        gotRight++;
+                    }
+                }
+
+                Requirement req = null;
+                foreach(Requirement _req in Requirements)
+                {
+                    if(_req.Rank == at.Rank)
+                    {
+                        req = _req;
+                    }
+                }
+
+                if(gotRight >= req.Kills)
+                {
+                    PassedAttendees.Add(Attandees.IndexOf(at));
+                }
+            }
+
+        }
+
+
     }
 
     public class RecontainmentModule : SimulationModule
@@ -252,14 +293,14 @@ namespace SETBHelper
 
 
     }
-    public class CombatRequirement
+    public class Requirement
     {
 
         public Attandee.EnuRank Rank { get; private set; }
         public int Kills { get; private set; }
         public double Ratio { get; private set; }
 
-        public CombatRequirement(Attandee.EnuRank _indx, int _kills, double _ratio)
+        public Requirement(Attandee.EnuRank _indx, int _kills, double _ratio)
         {
             Rank = _indx;
             Kills = _kills;
@@ -268,4 +309,22 @@ namespace SETBHelper
 
 
     }
+
+    public class QuestionResult
+    {
+
+        public int ATIndex { get; private set; }
+        public int QuestionIndex { get; private set; }
+
+
+        public QuestionResult(int _atIndex, int _questionIndex)
+        {
+            ATIndex = _atIndex;
+            QuestionIndex = _questionIndex;
+        }
+
+
+    }
+
+
 }

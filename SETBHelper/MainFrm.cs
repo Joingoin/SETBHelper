@@ -62,6 +62,7 @@ namespace SETBHelper
 
         private void AddModuleBtn_Click(object sender, EventArgs e)
         {
+            if(ModuleNameTbx.Text != null && ModuleNameTbx.Text.Trim() != "" && TypeOfModuleCmbx.SelectedIndex > -1)
             switch(TypeOfModuleCmbx.SelectedItem.ToString())
             {
 
@@ -147,6 +148,7 @@ namespace SETBHelper
                     QuestionDiag QueDiag = new QuestionDiag();
                     QueDiag.module = (QuestionModule)tm;
                     QueDiag.ShowDialog();
+                    ((QuestionModule)tm).CalculateResults();
                     UpdateResults();
 
                 }
