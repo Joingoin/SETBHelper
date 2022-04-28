@@ -65,6 +65,8 @@ namespace SETBHelper
 
         public void CalculateResults()
         {
+            PassedAttendees.Clear();
+
             foreach(CombatResult cr in CmbtResults)
             {
                 double ratio = cr.Kills / cr.Deaths;

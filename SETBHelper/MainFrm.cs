@@ -123,6 +123,8 @@ namespace SETBHelper
                     CombatModuleDiag CmbtDiag = new CombatModuleDiag();
                     CmbtDiag.module = (CombatModule)tm;
                     CmbtDiag.ShowDialog();
+                    ((CombatModule)tm).CalculateResults();
+                    UpdateResults();
                 }
                 if (tm is SimulationModule)
                 {
@@ -141,8 +143,8 @@ namespace SETBHelper
 
         public void UpdateResults()
         {
-            //WIP
-            //foreach
+            ResultsRTbx.Text = "";
+            ResultsRTbx.Text = training.GiveResults();
         }
     }
 }
