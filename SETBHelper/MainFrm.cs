@@ -144,7 +144,10 @@ namespace SETBHelper
                 }
                 if (tm is QuestionModule)
                 {
-
+                    QuestionDiag QueDiag = new QuestionDiag();
+                    QueDiag.module = (QuestionModule)tm;
+                    QueDiag.ShowDialog();
+                    UpdateResults();
 
                 }
             
