@@ -141,7 +141,8 @@ namespace SETBHelper
 
         public void UpdateResults()
         {
-            foreach
+            //WIP
+            //foreach
         }
     }
 }
