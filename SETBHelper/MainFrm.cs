@@ -128,14 +128,23 @@ namespace SETBHelper
                 }
                 if (tm is SimulationModule)
                 {
-
+                    //No Automation possible
+                    SimulationModuleDiag SimDiag = new SimulationModuleDiag();
+                    SimDiag.module = (SimulationModule)tm;
+                    SimDiag.ShowDialog();
+                    UpdateResults();
                 }
                 if (tm is RecontainmentModule)
                 {
-
+                    //For now also a SimDiag as literally Hosts decides if they passed //No Automation possible
+                    SimulationModuleDiag SimDiag = new SimulationModuleDiag();
+                    SimDiag.module = (SimulationModule)tm;
+                    SimDiag.ShowDialog();
+                    UpdateResults();
                 }
                 if (tm is QuestionModule)
                 {
+
 
                 }
             

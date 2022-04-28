@@ -156,7 +156,7 @@ namespace SETBHelper
 
             foreach(FinalResult fr in results)
             {
-                output += $"@{Attandees[fr.ATIndex].Name} {fr.Score}TP";
+                output += $"@{Attandees[fr.ATIndex].Name} - {fr.Score}TP\n";
             }
 
             return output;

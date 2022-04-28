@@ -61,6 +61,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimulationModuleDiag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimulationModuleDiag.Designer.cs">
+      <DependentUpon>SimulationModuleDiag.cs</DependentUpon>
+    </Compile>
     <Compile Include="Training.cs" />
     <Compile Include="TrainingModule.cs" />
     <EmbeddedResource Include="CombatModuleDiag.resx">
@@ -78,6 +84,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SimulationModuleDiag.resx">
+      <DependentUpon>SimulationModuleDiag.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
